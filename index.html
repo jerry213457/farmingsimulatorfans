@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farming Simulator</title>
+<style>
+:root{--green:#315b35;--deep:#203d27;--lime:#a8c96a;--cream:#f6f0df;--gold:#e6b84f;--soil:#8a603e}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#edf2df;color:#263b29}
+header{background:linear-gradient(120deg,#24452c,#477744);color:white;padding:20px max(5vw,20px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:900;font-size:1.55rem;letter-spacing:.3px}.brand span{color:#d8ec9b}
+nav{display:flex;gap:16px;flex-wrap:wrap}nav a{color:#eff7e7;text-decoration:none;font-weight:700;font-size:.94rem}
+.hero{padding:56px max(5vw,20px);background:linear-gradient(90deg,rgba(20,45,24,.85),rgba(20,45,24,.15)),url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85') center/cover;color:white;min-height:300px;display:flex;align-items:center}
+.hero-inner{max-width:650px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:.78rem;font-weight:900;color:#e6d58c}.hero h1{font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.02;margin:10px 0}.hero p{font-size:1.08rem;max-width:560px;color:#f3f4e8}
+button{border:0;border-radius:12px;padding:12px 18px;background:var(--gold);color:#302a18;font-weight:900;font-size:1rem;cursor:pointer;box-shadow:0 3px 0 #b78a32;transition:transform .12s}button:hover{transform:translateY(-2px)}button:active{transform:translateY(1px)}button.secondary{background:#e7edda;box-shadow:0 3px 0 #c5d0b4;color:#29432d}
+main{max-width:1150px;margin:auto;padding:30px 20px 60px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-48px;position:relative}
+.stat{background:white;border-radius:16px;padding:16px;box-shadow:0 8px 24px #263b2918;border:1px solid #e2e8d7}.stat small{display:block;color:#71806a;font-weight:700}.stat strong{font-size:1.5rem;color:var(--deep)}
+.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:38px 0 16px;flex-wrap:wrap}.section-title h2{margin:0;color:var(--deep);font-size:1.7rem}.section-title p{margin:4px 0 0;color:#6b7963}
+.game-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}.panel{background:#fff;border:1px solid #e0e7d6;border-radius:18px;padding:18px;box-shadow:0 6px 20px #263b2910}
+.field{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:16px 0}.plot{aspect-ratio:1.12;border-radius:12px;background:linear-gradient(145deg,#9b7049,#765033);border:3px solid #68452d;color:#fff3d3;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.9rem;cursor:pointer;position:relative;overflow:hidden}.plot small{font-size:.7rem;font-weight:800;letter-spacing:.3px}.plot.ready{background:linear-gradient(145deg,#d5b957,#a98534);border-color:#8b6b2a}.plot.growing{background:linear-gradient(145deg,#71974c,#456b37);border-color:#35532e}
+.plot:focus{outline:3px solid #e6b84f;outline-offset:2px}.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.actions button{width:100%;background:#dce9c9;box-shadow:0 3px 0 #b5c99b;color:#28442b}.actions button:disabled{opacity:.45;cursor:not-allowed}
+.notice{background:#f6f2df;border-radius:12px;padding:12px;margin-top:12px;color:#63512a;font-weight:700;min-height:48px}
+.shop-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #edf0e8}.shop-item:last-child{border:0}.shop-item strong{display:block}.shop-item small{color:#73806c}.shop-item button{padding:9px 12px;font-size:.86rem}
+.animal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.animal{background:#f3f6eb;border-radius:13px;text-align:center;padding:14px 8px}.animal b{display:block;margin-top:4px}.animal span{font-size:1.8rem}
+footer{text-align:center;background:#203d27;color:#e9f1df;padding:24px;font-size:.9rem}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.game-layout{grid-template-columns:1fr}.hero{min-height:340px}.field{gap:6px}.plot{font-size:1.5rem}.animal-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="brand">🚜 <span>Farming Simulator</span></div><nav><a href="#farm">My Farm</a><a href="#shop">Farm Shop</a><a href="#animals">Animals</a></nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Your countryside adventure starts here</div><h1>Grow your own<br>little piece of heaven.</h1><p>Plant crops, harvest your fields, earn coins, and build the farm of your dreams.</p><button onclick="document.querySelector('#farm').scrollIntoView({behavior:'smooth'})">🌱 Start farming</button></div></section>
+<main>
+<div class="stats">
+ <div class="stat"><small>💰 FARM COINS</small><strong id="coins">120</strong></div>
+ <div class="stat"><small>🌾 HARVESTED</small><strong id="harvested">0</strong></div>
+ <div class="stat"><small>🌱 SEEDS</small><strong id="seeds">6</strong></div>
+ <div class="stat"><small>🚜 FARM LEVEL</small><strong id="level">1</strong></div>
+</div>
+<section id="farm">
+ <div class="section-title"><div><h2>🌻 Your Farm</h2><p>Choose a field tile, then plant, water, or harvest.</p></div><button class="secondary" onclick="resetFarm()">↻ New day</button></div>
+ <div class="game-layout">
+  <div class="panel"><h3>🌱 Crop fields</h3><div class="field" id="field"></div><div class="notice" id="message" aria-live="polite">Welcome, farmer! Select an empty plot to get started.</div></div>
+  <div class="panel"><h3>🧰 Farm tools</h3><p style="color:#71806a;margin-top:-5px">Pick a tool, then tap a plot.</p><div class="actions">
+   <button onclick="setTool('plant')">🌱 Plant seeds</button><button onclick="setTool('water')">💧 Water crops</button><button onclick="setTool('harvest')">🌾 Harvest</button><button onclick="setTool('clear')">🪓 Clear plot</button>
+  </div><div class="notice" id="tool">Selected tool: Plant seeds</div><h3 style="margin-top:22px">📋 How to play</h3><p style="color:#687661;line-height:1.55">1. Plant a seed in an empty plot.<br>2. Water it to help it grow.<br>3. Harvest ripe crops for coins.<br>4. Buy more seeds in the Farm Shop.</p></div>
+ </div>
+</section>
+<section id="shop">
+ <div class="section-title"><div><h2>🏪 Farm Shop</h2><p>Stock up on supplies for your next harvest.</p></div></div>
+ <div class="panel">
+  <div class="shop-item"><div><strong>🌽 Seed packet</strong><small>Plant another crop · 15 coins</small></div><button onclick="buySeeds()">Buy seeds</button></div>
+  <div class="shop-item"><div><strong>🐔 Chicken coop</strong><small>Add a little farm life · 80 coins</small></div><button onclick="buyAnimal('chicken',80)">Buy coop</button></div>
+  <div class="shop-item"><div><strong>🐄 Cow barn</strong><small>Welcome a cow · 150 coins</small></div><button onclick="buyAnimal('cow',150)">Buy barn</button></div>
+ </div>
+</section>
+<section id="animals">
+ <div class="section-title"><div><h2>🐾 Farm Animals</h2><p>Your farm friends live here.</p></div></div>
+ <div class="panel"><div class="animal-grid" id="animalGrid"><div class="animal"><span>🐴</span><b>Horse</b><small>Your trusty helper</small></div><div class="animal"><span>🐑</span><b>Sheep</b><small>Happy in the pasture</small></div><div class="animal"><span>🦆</span><b>Duck</b><small>Loves the pond</small></div></div></div>
+</section>
+</main>
+<footer>🚜 Farming Simulator Farming Simulator · Plant a seed, grow a dream.</footer>
+<script>
+let coins=120,seeds=6,harvested=0,level=1,tool='plant',selected=0;
+let plots=Array.from({length:8},()=>({state:'empty',water:0,age:0}));
+let animals=[];
+const $=id=>document.getElementById(id);
+function say(t){$('message').textContent=t}
+function setTool(t){tool=t;$('tool').textContent='Selected tool: '+({plant:'Plant seeds',water:'Water crops',harvest:'Harvest',clear:'Clear plot'}[t]);say('Tool ready! Choose a field tile.')}
+function render(){
+ $('coins').textContent=coins;$('seeds').textContent=seeds;$('harvested').textContent=harvested;$('level').textContent=level;
+ $('field').innerHTML='';
+ plots.forEach((p,i)=>{let b=document.createElement('button');b.className='plot '+(p.state==='ready'?'ready':p.state==='growing'?'growing':'');b.innerHTML=(p.state==='empty'?'🟫':p.state==='seed'?'🌱':p.state==='growing'?(p.water?'🌿':'🥬'):'🌽')+'<small>'+ (p.state==='empty'?'EMPTY':p.state==='seed'?'JUST PLANTED':p.state==='growing'?'GROWING':'READY!')+'</small>';b.setAttribute('aria-label','Plot '+(i+1)+' '+p.state);b.onclick=()=>usePlot(i);$('field').appendChild(b)});
+ $('animalGrid').innerHTML='<div class="animal"><span>🐴</span><b>Horse</b><small>Your trusty helper</small></div><div class="animal"><span>🐑</span><b>Sheep</b><small>Happy in the pasture</small></div><div class="animal"><span>🦆</span><b>Duck</b><small>Loves the pond</small></div>'+animals.map(a=>`<div class="animal"><span>${a==='cow'?'🐄':'🐔'}</span><b>${a==='cow'?'Cow':'Chicken'}</b><small>New farm friend</small></div>`).join('');
+}
+function usePlot(i){let p=plots[i];selected=i;
+ if(tool==='plant'){if(p.state!=='empty')return say('That plot is already in use. Pick an empty one!');if(seeds<1)return say('You need more seeds. Visit the Farm Shop!');seeds--;p.state='seed';p.age=0;say('Seed planted! Give it some water.')}
+ if(tool==='water'){if(!['seed','growing'].includes(p.state))return say('Only planted crops need watering.');p.water++;p.age++;p.state=p.age>=2?'ready':'growing';say(p.state==='ready'?'Your crop is ready to harvest! 🌾':'Nice watering! Your crop is growing.')}
+ if(tool==='harvest'){if(p.state!=='ready')return say('This crop needs more care before harvest.');coins+=35;harvested++;p.state='empty';p.water=0;p.age=0;let newLevel=1+Math.floor(harvested/5);if(newLevel>level){level=newLevel;say('Amazing harvest! You reached farm level '+level+'! 🎉')}else say('Great harvest! You earned 35 coins.')}
+ if(tool==='clear'){if(p.state==='empty')return say('That plot is already clear.');p.state='empty';p.water=0;p.age=0;say('Plot cleared. You can plant here again.')}
+ render();
+}
+function buySeeds(){if(coins<15)return say('Not enough coins for seeds yet. Harvest a crop first!');coins-=15;seeds+=3;say('You bought 3 seeds. Happy planting!');render()}
+function buyAnimal(a,c){if(coins<c)return say('Not enough coins yet. Keep harvesting to save up!');if(animals.includes(a))return say('You already have one of those farm friends!');coins-=c;animals.push(a);say('Welcome to the farm, '+(a==='cow'?'Moo the cow':'your new chicken')+'!');render()}
+function resetFarm(){plots.forEach(p=>{if(p.state==='seed'||p.state==='growing'){p.age++;p.state=p.age>=2?'ready':'growing'}});say('A new farm day! Your crops have had time to grow.');render()}
+render();
+</script>
+</body>
+</html>
